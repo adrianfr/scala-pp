@@ -2,12 +2,16 @@ scalapp
 =======
 
 Scala pretty-print.
+
 Prints nicely any arbitrarily-nested scala collection.
 
 git clone https://github.com/adrianfr/scalapp.git
+
 cd scalapp
+
 mvn package
 
+```
 scala -cp target/scalapp-1.0-SNAPSHOT.jar
 
 scala> import af.scalapp._
@@ -44,4 +48,5 @@ scala> List(1,2,(3,4),("a", 2.5), Map(1->Array(22,"x"), 2->Set("boo", "foo"))).p
   >
 ]
 res2: List[Any] = List(1, 2, (3,4), (a,2.5), Map(1 -> Array(22, x), 2 -> Set(boo, foo)))
+```
 
