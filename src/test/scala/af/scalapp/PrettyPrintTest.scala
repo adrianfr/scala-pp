@@ -3,21 +3,24 @@ package af.scalapp
 import org.junit.Test
 
 /**
- * Sanity/functional test for PrettyPrint
+ * Sanity/functional tests for visual inspections
  */
 class PrettyPrintTest {
 
   @Test
   def testAll() {
-    // simple objects
-    42.pp("my42")
-    new Integer(22).pp("Integer22")
-    val tup = (5, "aa", 2.2)
-    tup.pp
-    tup.pp("myTuple3")
 
-    // simple lists
-    List().pp("emptyList")
+    "=== simple objects".pp
+    42.pp("scala Int")
+    new Integer(22).pp("java Integer")
+    (5, "aa", 2.2).pp("Heterogeneous Tuple")
+    (5, "aa", 2.2).pp
+
+
+    "=== simple lists".pp
+    Nil.pp("Nil")
+    List().pp("Empty List")
+    Array().pp("Empty Array")
     List(1, 2, 3, 4).pp("x1#//")
     List(1, "s2", 3, 4).pp("x2")
 
@@ -28,23 +31,22 @@ class PrettyPrintTest {
     ("a", 2, (2, 3, 4, 5)).pp
 
 
-    // iterators
-    List(1, 2, 3, 4).toIterator.pp("iterator")
+    "=== iterators".pp
+    List(1, 2, 3, 4).toIterator.pp
     List(1, 2, 3, 4).toIterator.toSeq.pp("stream") // this has a Stream type
     //    Stream.from(1).pp   // this does not stop. take a sample by default
 
 
-    // case classes
-    case class CC(i: Int, s: String, list: Seq[Int])
-    val cc = new CC(2, "aa", List(1, 2, 3))
-    cc.pp
+    "=== case classes".pp
+    case class CaseClass1(i: Int, s: String, list: Seq[Int])
+    CaseClass1(2, "aa", List(1, 2, 3)).pp
 
 
-    // Options
+    "=== Options".pp
     None.pp
     Some(42).pp
     Option(22).pp
-    Left(25).pp
+    Left(22).pp
     Right(999).pp
     Some(List(1)).pp
   }
