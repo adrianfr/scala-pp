@@ -10,13 +10,23 @@ package object scalapp {
    */
   implicit class PrettyPrintAny[T](val obj: T) {
 
-    // PrettyString: recursive alternative for toString()
-    def ps: String = PrettyPrint.ps(obj, "")
+    /**
+      *
+      * @param labels slash(/) - separated labels for each depth
+      * @return a pretty-print string
+      */
     def ps(labels: String): String = PrettyPrint.ps(obj, labels)
+    def ps: String = PrettyPrint.ps(obj, "")
 
-    // tap this anywhere in an operations sequence (on collections) for debugging. Returns this object
-    def pp: T = PrettyPrint.pp(obj, "")
+    /**
+      * Prints the ps output and return this object
+      * Tap this anywhere in an operations sequence for debugging
+      *
+      * @param labels slash(/) - separated labels for each depth
+      * @return this object
+      */
     def pp(labels: String): T = PrettyPrint.pp(obj, labels)
+    def pp: T = PrettyPrint.pp(obj, "")
 
     /**
       * Applies func to this object before passing it to pp
@@ -27,23 +37,11 @@ package object scalapp {
       * @return this object (not the result of the func). However, func may have had side effect on the object,
       *         for example triggering an action on an RDD
       */
-    def ppf(func: (T => Any), labels: String): T = {
+    def ppf(func: (T => Any), labels: String = ""): T = {
       PrettyPrint.pp(func(obj), labels)
       obj
     }
 
-
-    def saveToFile(path: String): Unit = {
-      val bw = new java.io.BufferedWriter(new java.io.FileWriter(path))
-      bw.write(obj.toString)
-      bw.close()
-    }
-
-    def psSaveToFile(path: String): Unit = {
-      val bw = new java.io.BufferedWriter(new java.io.FileWriter(path))
-      bw.write(obj.ps)
-      bw.close()
-    }
   }
 
 }

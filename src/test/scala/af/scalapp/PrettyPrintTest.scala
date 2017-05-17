@@ -41,11 +41,13 @@ class PrettyPrintTest {
     case class CaseClass1(i: Int, s: String, list: Seq[Int])
     CaseClass1(2, "aa", List(1, 2, 3)).pp
 
+    "=== ppf with function".pp
+    List(1, 2, 3).ppf(_.map(_ * 10), "ppf times 10")
+    List(1, 2, 3).ppf(_.map(_ * 10))
 
-    "=== Options".pp
+    "=== Options, etc".pp
     None.pp
     Some(42).pp
-    Option(22).pp
     Left(22).pp
     Right(999).pp
     Some(List(1)).pp
